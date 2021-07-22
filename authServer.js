@@ -22,11 +22,13 @@ app.post('/token', (req, res) => {
     })
 })
 
+// logout
 app.delete('/logout', (req, res) => {
     refreshTokens = refreshTokens.filter(token => token !== req.body.token)
     res.sendStatus(204)
 })
 
+// login
 app.post('/login', (req, res) => {
     const username = req.body.username
     const user = { name: username, age: 25 }
@@ -41,6 +43,7 @@ app.post('/login', (req, res) => {
 
 })
 
+// generate new access token based on user
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
 }
